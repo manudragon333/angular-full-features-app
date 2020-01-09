@@ -1,0 +1,11 @@
+.form-group{
+  border: 1px solid #ccc;
+  margin-bottom: 2px;
+  border-radius: 4px;
+  box-shadow: 1px 1px 1px #ddd;
+  padding: 6px;
+}
+.form-group label{
+  color:darkmagenta;
+  padding-right: 4px;
+}

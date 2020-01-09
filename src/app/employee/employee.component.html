@@ -1,0 +1,96 @@
+<h2>
+  Employee Details - {{employee.name | uppercase}}
+  <span stye="float:right"><button (click)="editMode = !editMode">{{editMode ? 'Cancel' : 'Edit'}}</button></span>
+</h2>
+
+<div class="form-group">
+  <label>Employee Id: 
+    <input *ngIf="editMode" [(ngModel)]="employee.empId" disabled="" placeholder="Employee Id" />
+  </label>
+  <span *ngIf="!editMode">{{employee.empId}}</span>
+</div>
+<div class="form-group">
+  <label>Employee Name: 
+    <input *ngIf="editMode" [(ngModel)]="employee.name" placeholder="Employee Name" />
+  </label>
+  <span *ngIf="!editMode">{{employee.name}}</span>
+</div>
+
+
+<div class="form-group">
+  <label>Gender: </label>
+  <span *ngIf="editMode">
+    <label>Male: 
+      <input type="radio" [(ngModel)]="employee.gender" value="{{gender.male}}" placeholder="Employee Gender" />
+    </label>
+    <label>Fe-Male: 
+      <input type="radio" [(ngModel)]="employee.gender" value="{{gender.female}}" placeholder="Employee Gender" />
+    </label>
+  </span>
+  <span *ngIf="!editMode">
+    {{employee.gender == gender.female ? 'Fe-' : ''}}Male
+  </span>
+</div>
+<div class="form-group">
+  <label>Gender: 
+    <span *ngIf="editMode">
+      <select [(ngModel)]="employee.gender" placeholder="Gender">
+        <option value="">- Select -</option>
+        <option value="{{gender.male}}">Male</option>
+        <option value="{{gender.female}}">Fe-Male</option>
+      </select> 
+    </span>
+  </label>
+  <span *ngIf="!editMode">
+    {{employee.gender == gender.female ? 'Fe-' : ''}}Male
+  </span>
+</div>
+
+
+<div class="form-group">
+  <label>Salary: 
+    <span *ngIf="editMode">
+      <input [(ngModel)]="employee.salary" placeholder="Salary" />
+    </span>
+  </label>
+  <span *ngIf="!editMode">
+    Rs.{{employee.salary}}
+  </span>
+</div>
+
+
+<div class="form-group">
+  <label>Departments: </label>
+  <span *ngIf="editMode">
+    <label *ngFor="let r of departmentsChkbx">
+      {{r.label}} 
+      <input type="checkbox" [(ngModel)]="r.isChecked" value="{{r.value}}" [checked]="departments.includes(r.value)" /> 
+    </label>
+  </span>
+  <span *ngIf="!editMode">
+    <span *ngFor="let r of departments | objfilter:employee.departments; let last=last;">{{r.label}}{{!last? ', ':''}}</span>
+  </span>
+</div>
+<div class="form-group">
+  <label>Departments: 
+    <span *ngIf="editMode">
+      <select [(ngModel)]="employee.departments" placeholder="Departments" multiple>
+        <option *ngFor="let r of departments" value="{{r.value}}">{{r.label}}</option>
+      </select>
+    </span>
+  </label>
+  <span *ngIf="!editMode">
+    <span *ngFor="let r of departments | objfilter:employee.departments; let last=last;">{{r.label}}{{!last? ', ':''}}</span>
+  </span>
+</div>
+
+
+<div class="form-group">
+  <pre>{{employee | json}}</pre>
+  <br/>
+  <pre>{{gender | json}}</pre>
+  <br/>
+  <pre>{{departmentsChkbx | json}}</pre>
+  <br/>
+  <pre>{{departments | json}}</pre>
+</div>
